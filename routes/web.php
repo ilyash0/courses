@@ -23,9 +23,9 @@ Route::prefix('course-admin')->group(function () {
             return redirect()->route('courses.index');
         })->name('dashboard');
 
-        Route::resource('courses', CourseController::class)->except(['show']);
+        Route::resource('courses', CourseController::class);
 
-        Route::resource('courses.lessons', LessonController::class)->shallow();
+        Route::resource('lessons', LessonController::class)->shallow();
 
         Route::get('/students', [StudentController::class, 'index'])->name('students.index');
 

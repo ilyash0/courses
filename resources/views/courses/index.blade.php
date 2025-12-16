@@ -45,7 +45,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('lessons.show', $course) }}" class="text-decoration-none">
+                                <a href="{{ route('courses.show', $course) }}" class="text-decoration-none">
                                     {{ $course->name }}
                                 </a>
                             </td>

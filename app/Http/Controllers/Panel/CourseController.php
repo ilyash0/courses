@@ -107,4 +107,13 @@ class CourseController extends Controller
 
         return redirect()->route('courses.index')->with('success', 'Курс успешно удален.');
     }
+
+    /**
+     * Display a listing of the resource for a specific course.
+     */
+    public function show(Course $course): View
+    {
+        $lessons = $course->lessons;
+        return view('courses.show', ['course' => $course, 'lessons' => $lessons]);
+    }
 }
