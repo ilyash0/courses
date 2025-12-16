@@ -20,7 +20,7 @@ class CourseRequest extends FormRequest
             'price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'min:100'],
             'start_date' => ['required', 'date_format:d-m-Y'],
             'end_date' => ['required', 'date_format:d-m-Y', 'after_or_equal:start_date'],
-            'cover_image_path' => [($this->course ? 'nullable' : 'required'), 'file', 'mimes:jpeg,jpg', 'max:2048']
+            'cover_image_path' => [($this->course ? 'nullable' : 'required'), 'file', 'mimes:jpeg,jpg', 'max:2000']
         ];
     }
 
