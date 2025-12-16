@@ -526,3 +526,56 @@ body {
     vertical-align: middle;
     filter: none;
 }
+
+/* Стили пагинации, переопределяющие Laravel/Bootstrap */
+.pagination {
+    display: flex;
+    justify-content: center; /* Центрируем пагинацию */
+    list-style: none;        /* Убираем стандартные маркеры списка */
+    padding: 20px 0;         /* Добавляем отступы сверху и снизу */
+    margin: 0;               /* Убираем стандартные отступы списка */
+    /* border: 1px solid #dee2e6; /* Опционально: рамка вокруг всего блока пагинации */
+    /* border-radius: 0.375rem; /* Опционально: скругление углов */
+}
+
+.pagination li {
+    margin: 0 2px;           /* Убираем или уменьшаем стандартные отступы между элементами */
+}
+
+.pagination a,
+.pagination span { /* Добавляем span, так как Laravel использует его для неактивных элементов */
+    display: block;
+    padding: 8px 16px;       /* Размеры кнопки */
+    background-color: white; /* Цвет фона */
+    border: 1px solid #dee2e6; /* Цвет границы */
+    border-radius: 6px;      /* Скругление углов */
+    color: #3498db;          /* Цвет текста для ссылок */
+    text-decoration: none;   /* Убираем подчеркивание */
+    transition: all 0.3s;    /* Плавный переход для hover */
+    font-weight: 500;        /* Жирность текста */
+    font-size: 0.875rem;     /* Размер шрифта */
+}
+
+.pagination a:hover {
+    background-color: #f8f9fa; /* Цвет фона при наведении */
+    border-color: #3498db;     /* Цвет границы при наведении */
+    color: #2980b9;            /* Цвет текста при наведении */
+}
+
+.pagination .active a,
+.pagination .active span { /* Стили для активной страницы */
+    background-color: #3498db; /* Цвет фона активной страницы */
+    color: white;              /* Цвет текста активной страницы */
+    border-color: #3498db;     /* Цвет границы активной страницы */
+    cursor: default;           /* Курсор по умолчанию для активной страницы */
+    pointer-events: none;      /* Отключаем клик на активной странице */
+}
+
+.pagination .disabled a,
+.pagination .disabled span { /* Стили для неактивных элементов (например, "Предыдущая") */
+    color: #6c757d;            /* Цвет текста неактивного элемента */
+    background-color: #f8f9fa; /* Цвет фона неактивного элемента */
+    border-color: #dee2e6;     /* Цвет границы неактивного элемента */
+    cursor: not-allowed;       /* Курсор "не разрешено" */
+    pointer-events: none;      /* Отключаем клик на неактивном элементе */
+}

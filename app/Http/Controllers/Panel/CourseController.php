@@ -17,25 +17,7 @@ class CourseController extends Controller
      */
     public function index(Request $request): View
     {
-        $query = Course::query();
-
-        $allCourses = $query->orderBy('created_at', 'desc')->get();
-
-        $perPage = 5;
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $currentItems = $allCourses->slice(($currentPage - 1) * $perPage, $perPage)->values();
-        $paginator = new LengthAwarePaginator(
-            $currentItems,
-            $allCourses->count(),
-            $perPage,
-            $currentPage,
-            [
-                'path' => LengthAwarePaginator::resolveCurrentPath(),
-                'pageName' => 'page',
-            ]
-        );
-
-        return view('courses.index', ['courses' => $paginator]);
+        return view('courses.index', ['courses' => Course::query()->orderBy('created_at', 'desc')->paginate(5)]);
     }
 
     /**
@@ -58,7 +40,7 @@ class CourseController extends Controller
             if ($image->isValid()) {
                 $originalExtension = $image->getClientOriginalExtension();
                 $fileName = 'mpic_' . uniqid() . '.' . $originalExtension;
-                $image->move(public_path('images'), $fileName);
+                $image->move(public_path('img'), $fileName);
 
                 $validatedData['cover_image_path'] = $fileName;
             } else {
@@ -90,12 +72,12 @@ class CourseController extends Controller
             $image = $request->file('cover_image_path');
             if ($image->isValid()) {
                 if ($course->cover_image_path && file_exists(public_path('images/' . $course->cover_image_path))) {
-                    unlink(public_path('images/' . $course->cover_image_path));
+                    unlink(public_path('img/' . $course->cover_image_path));
                 }
 
                 $originalExtension = $image->getClientOriginalExtension();
                 $fileName = 'mpic_' . uniqid() . '.' . $originalExtension;
-                $image->move(public_path('images'), $fileName);
+                $image->move(public_path('img'), $fileName);
 
                 $validatedData['cover_image_path'] = $fileName;
             } else {
@@ -118,7 +100,7 @@ class CourseController extends Controller
         }
 
         if ($course->cover_image_path && file_exists(public_path('images/' . $course->cover_image_path))) {
-            unlink(public_path('images/' . $course->cover_image_path));
+            unlink(public_path('img/' . $course->cover_image_path));
         }
 
         $course->delete();

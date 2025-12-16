@@ -18,8 +18,8 @@ class CourseRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:100'],
             'duration_hours' => ['required', 'integer', 'min:1', 'max:10'],
             'price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'min:100'],
-            'start_date' => ['required', 'date_format:d-m-Y'],
-            'end_date' => ['required', 'date_format:d-m-Y', 'after_or_equal:start_date'],
+            'start_date' => ['required'],
+            'end_date' => ['required', 'after_or_equal:start_date'],
             'cover_image_path' => [($this->course ? 'nullable' : 'required'), 'file', 'mimes:jpeg,jpg', 'max:2000']
         ];
     }
