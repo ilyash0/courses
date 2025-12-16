@@ -29,6 +29,6 @@ Route::prefix('course-admin')->group(function () {
 
         Route::get('/students', [StudentController::class, 'index'])->name('students.index');
 
-        Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+        Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     });
 });
