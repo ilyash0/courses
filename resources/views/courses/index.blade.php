@@ -34,7 +34,7 @@
                             <td>{{ $course->id }}</td>
                             <td>
                                 @if($course->cover_image_path)
-                                    <a href="{{ route('lessons.show', $course) }}">
+                                    <a href="{{ route('courses.show', $course) }}">
                                         <img src="{{ asset('img/' . $course->cover_image_path) }}"
                                              alt="Обложка {{ $course->name }}"
                                              class="img-fluid rounded"

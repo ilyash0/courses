@@ -5,7 +5,7 @@
 @section('content')
     <div class="header">
         <h1>Редактирование курса</h1>
-        <a href="{{ route('dashboard') }}" class="btn btn-secondary">
+        <a href="{{ url()->previous() }}" class="btn btn-secondary">
             <img src="{{ asset('assets/img/back.svg') }}" alt="Назад">
             Назад к списку курсов
         </a>
