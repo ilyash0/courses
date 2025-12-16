@@ -65,24 +65,21 @@ body {
     border-left: 4px solid #2980b9;
 }
 
-/* Иконки в виде изображений */
+/* Иконки в сайдбаре */
 .sidebar-nav img {
     width: 20px;
     height: 20px;
     margin-right: 10px;
-    filter: brightness(0.8);
+    filter: brightness(0) invert(1) opacity(0.8);
     transition: all 0.3s ease;
 }
 
-.sidebar-nav a:hover img {
-    filter: brightness(1);
-}
-
+.sidebar-nav a:hover img,
 .sidebar-nav a.active img {
-    filter: brightness(1);
+    filter: brightness(0) invert(1) opacity(1);
 }
 
-/* Кнопки в сайдбаре как ссылки */
+/* Кнопки в сайдбаре */
 .btn-link.sidebar-link {
     display: flex;
     align-items: center;
@@ -108,12 +105,12 @@ body {
     width: 20px;
     height: 20px;
     margin-right: 10px;
-    filter: brightness(0.8);
+    filter: brightness(0) invert(1) opacity(0.8);
     transition: all 0.3s ease;
 }
 
 .btn-link.sidebar-link:hover img {
-    filter: brightness(1);
+    filter: brightness(0) invert(1) opacity(1);
 }
 
 /* Основной контент */
@@ -140,7 +137,7 @@ body {
     margin: 0;
 }
 
-/* Карточки и формы */
+/* Карточки */
 .card {
     background-color: white;
     border-radius: 8px;
@@ -271,6 +268,17 @@ body {
     margin-right: 6px;
 }
 
+/* Белые иконки для темных кнопок */
+.btn-primary img,
+.btn-success img,
+.btn-danger img {
+    filter: brightness(0) invert(1);
+}
+
+.btn-secondary img {
+    filter: brightness(0) invert(1) opacity(0.9);
+}
+
 /* Таблицы */
 .table-responsive {
     overflow-x: auto;
@@ -307,6 +315,7 @@ body {
 .table img.action-icon {
     width: 16px;
     height: 16px;
+    filter: brightness(0) invert(1);
 }
 
 /* Бейджи */
@@ -431,6 +440,7 @@ body {
     height: 32px;
     margin-right: 10px;
     vertical-align: middle;
+    filter: brightness(0) invert(1);
 }
 
 .login-body {
@@ -442,6 +452,7 @@ body {
     height: 18px;
     margin-right: 8px;
     vertical-align: middle;
+    filter: brightness(0) invert(1);
 }
 
 /* Ошибки */
@@ -477,7 +488,7 @@ body {
 .align-items-center { align-items: center; }
 .w-100 { width: 100%; }
 
-/* Стили для информационной карточки */
+/* Информационная карточка */
 .info-card {
     background-color: #f8f9fa;
     border-left: 4px solid #3498db;
@@ -502,13 +513,10 @@ body {
     height: 20px;
     margin-right: 8px;
     vertical-align: middle;
+    filter: brightness(0) invert(1);
 }
 
-/* Стили для таблицы с курсами */
-.course-table {
-    margin-bottom: 0;
-}
-
+/* Картинки курсов */
 .course-table .course-image {
     width: 50px;
     height: 50px;
@@ -516,4 +524,5 @@ body {
     object-fit: cover;
     margin-right: 10px;
     vertical-align: middle;
+    filter: none;
 }
