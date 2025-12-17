@@ -17,13 +17,13 @@
 
     <ul class="sidebar-nav">
         <li>
-            <a href="{{ route('courses.index') }}" class="active">
+            <a href="{{ route('courses.index') }}" class="{{ request()->routeIs('courses.*') ? 'active' : '' }}">
                 <img src="{{ asset('assets/img/learn.svg') }}" alt="Курсы">
                 Курсы
             </a>
         </li>
         <li>
-            <a href="{{ route('students.index') }}">
+            <a href="{{ route('students.index') }}" class="{{ request()->routeIs('students.*') ? 'active' : '' }}">
                 <img src="{{ asset('assets/img/student.svg') }}" alt="Студенты">
                 Студенты
             </a>
