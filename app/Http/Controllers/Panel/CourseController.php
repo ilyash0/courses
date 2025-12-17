@@ -15,7 +15,7 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+    public function index(): View
     {
         return view('courses.index', ['courses' => Course::query()->orderBy('created_at', 'desc')->paginate(5)]);
     }

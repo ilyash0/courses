@@ -579,3 +579,76 @@ body {
     cursor: not-allowed;       /* Курсор "не разрешено" */
     pointer-events: none;      /* Отключаем клик на неактивном элементе */
 }
+
+.filter-section {
+    background-color: #f8f9fa; /* Светлый фон для выделения */
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #3498db; /* Акцентная линия */
+    margin-bottom: 20px;
+}
+
+/* Стили для кастомного селекта (если хочется более кастомного вида, можно использовать библиотеки, но для простоты стилизуем стандартный) */
+.custom-select {
+    border: 2px solid #ced4da; /* Более заметная граница */
+    border-radius: 6px;
+    padding: 10px 15px; /* Внутренние отступы */
+    font-size: 1rem; /* Размер шрифта */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Плавный переход */
+    background-color: white; /* Убедимся, что фон белый */
+}
+
+.custom-select:focus {
+    border-color: #3498db; /* Цвет границы при фокусе */
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1); /* Тень при фокусе */
+    outline: none; /* Убираем стандартный outline */
+}
+
+/* Стили для кнопок фильтра */
+.filter-section .btn {
+    /* Наследуем высоту от селекта или задаем фиксированную */
+    padding: 10px 15px;
+    font-size: 1rem;
+    /* Выравнивание по высоте с селектом */
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-section .btn-primary {
+    background-color: #3498db;
+    border-color: #3498db;
+}
+
+.filter-section .btn-primary:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+
+.filter-section .btn-outline-secondary {
+    border-color: #6c757d;
+    color: #6c757d;
+}
+
+.filter-section .btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Минимальная ширина для селекта, чтобы он не сжимался слишком сильно */
+.min-width-select {
+    min-width: 250px; /* Можно изменить по вкусу */
+}
+
+/* Адаптивность: на маленьких экранах элементы фильтра становятся по отдельности */
+@media (max-width: 768px) {
+    .filter-section .btn {
+        align-self: auto; /* Отменяем stretch */
+        width: 100%; /* Кнопки на всю ширину */
+    }
+
+    .min-width-select {
+        min-width: 100%; /* Селект на всю ширину */
+    }
+}

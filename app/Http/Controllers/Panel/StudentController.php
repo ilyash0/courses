@@ -14,37 +14,18 @@ class StudentController extends Controller
     /**
      * Display a listing of students enrolled in courses.
      */
-    public function index(Request $request): View
+    public function index(): View
     {
-        $query = Order::with(['user', 'course']); // Загружаем связанные user и course
+        $query = Order::with(['user', 'course']);
 
-        $courseFilter = $request->input('course_filter');
+        $courseFilter = request('course_filter');
         if ($courseFilter) {
             $query->where('course_id', $courseFilter);
         }
 
-        $allOrders = $query->orderBy('enrollment_date', 'desc')->get();
-
-        $perPage = 5;
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $currentItems = $allOrders->slice(($currentPage - 1) * $perPage, $perPage)->values();
-        $paginator = new LengthAwarePaginator(
-            $currentItems,
-            $allOrders->count(),
-            $perPage,
-            $currentPage,
-            [
-                'path' => LengthAwarePaginator::resolveCurrentPath(),
-                'pageName' => 'page',
-            ]
-        );
-
-        $courses = Course::all();
-
-        return view('admin.students.index', [
-            'orders' => $paginator,
-            'courses' => $courses,
-            'selectedCourse' => $courseFilter,
+        return view('students.index', [
+            'orders' => $query->orderBy('created_at', 'desc')->paginate(5),
+            'courses' => Course::orderBy('name')->get(),
         ]);
     }
 }
