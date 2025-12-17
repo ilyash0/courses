@@ -13,15 +13,6 @@ use Illuminate\View\View;
 class LessonController extends Controller
 {
     /**
-     * Display a listing of the resource for a specific course.
-     */
-    public function index(Course $course): View
-    {
-        $lessons = $course->lessons;
-        return view('admin.lessons.index', ['course' => $course, 'lessons' => $lessons]);
-    }
-
-    /**
      * Show the form for creating a new resource for a specific course.
      */
     public function create(Course $course): View|RedirectResponse
@@ -29,7 +20,7 @@ class LessonController extends Controller
         if ($course->lessons()->count() >= 5) {
             return redirect()->back()->withErrors(['error' => 'Для курса уже добавлено максимальное количество уроков (5).']);
         }
-        return view('admin.lessons.create', ['course' => $course]);
+        return view('lessons.create', ['course' => $course]);
     }
 
     /**
@@ -46,7 +37,7 @@ class LessonController extends Controller
 
         Lesson::create($validatedData);
 
-        return redirect()->route('admin.lessons.index', ['course' => $course])->with('success', 'Урок успешно создан.');
+        return redirect()->route('courses.show', ['course' => $course])->with('success', 'Урок успешно создан.');
     }
 
     /**
@@ -57,7 +48,7 @@ class LessonController extends Controller
         if ($lesson->course_id !== $course->id) {
             abort(404);
         }
-        return view('admin.lessons.edit', ['course' => $course, 'lesson' => $lesson]);
+        return view('lessons.edit', ['course' => $course, 'lesson' => $lesson]);
     }
 
     /**
@@ -73,7 +64,7 @@ class LessonController extends Controller
 
         $lesson->update($validatedData);
 
-        return redirect()->route('admin.lessons.index', ['course' => $course])->with('success', 'Урок успешно обновлен.');
+        return redirect()->route('courses.show', ['course' => $course])->with('success', 'Урок успешно обновлен.');
     }
 
     /**
@@ -91,6 +82,6 @@ class LessonController extends Controller
 
         $lesson->delete();
 
-        return redirect()->route('admin.lessons.index', ['course' => $course])->with('success', 'Урок успешно удален.');
+        return redirect()->route('courses.show', ['course' => $course])->with('success', 'Урок успешно удален.');
     }
 }

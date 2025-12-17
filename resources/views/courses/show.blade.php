@@ -10,7 +10,7 @@
         </div>
         <div>
             @if($course->lessons()->count() < 5)
-                <a href="{{ route('lessons.create', ['course' => $course->id]) }}" class="btn btn-success me-2">
+                <a href="{{ route('courses.lessons.create', ['course' => $course->id]) }}" class="btn btn-success me-2">
                     <img src="{{ asset('assets/img/plus.svg') }}" alt="Добавить">
                     Добавить урок
                 </a>
@@ -83,20 +83,20 @@
                             <td>{{ $lesson->duration_hours }}</td>
                             <td>
                                 @if($lesson->video_link)
-                                    <span class="badge bg-success">Есть</span>
+                                    <span class="badge badge-success">Есть</span>
                                 @else
-                                    <span class="badge bg-warning">Нет</span>
+                                    <span class="badge badge-warning">Нет</span>
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('lessons.edit', ['lesson' => $lesson->id, 'course' => $course->id]) }}"
+                                <a href="{{ route('courses.lessons.edit', [$course, $lesson]) }}"
                                    class="btn btn-sm btn-primary me-2"
                                    title="Редактировать">
                                     <img src="{{ asset('assets/img/edit.svg') }}" alt="Редактировать"
                                          class="action-icon">
                                 </a>
                                 <form method="POST"
-                                      action="{{ route('lessons.destroy', ['lesson' => $lesson->id, 'course' => $course->id]) }}"
+                                      action="{{ route('courses.lessons.destroy', [$course, $lesson]) }}"
                                       style="display: inline;"
                                       onsubmit="return confirm('Вы уверены, что хотите удалить урок «{{ $lesson->title }}»?');">
                                 @csrf

@@ -25,7 +25,7 @@ Route::prefix('course-admin')->group(function () {
 
         Route::resource('courses', CourseController::class);
 
-        Route::resource('lessons', LessonController::class)->shallow();
+        Route::resource('courses.lessons', LessonController::class)->except(['show', 'index']);
 
         Route::get('/students', [StudentController::class, 'index'])->name('students.index');
 
