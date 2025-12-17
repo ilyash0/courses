@@ -1,8 +1,24 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\CertificateController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::prefix('school-api')->group(function () {
+    Route::post('/registr', [AuthController::class, 'register']);
+    Route::post('/auth', [AuthController::class, 'authenticate']);
+    Route::post('/payment-webhook', [OrderController::class, 'handlePaymentWebhook']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/courses', [CourseController::class, 'index']);
+        Route::get('/courses/{courseId}', [CourseController::class, 'showLessons']);
+        Route::post('/courses/{courseId}/buy', [OrderController::class, 'buyCourse']);
+
+        Route::get('/orders', [OrderController::class, 'index']);
+        Route::delete('/orders/{orderId}', [OrderController::class, 'cancel']);
+
+        Route::post('/check-certificate', [CertificateController::class, 'check']);
+    });
+});
