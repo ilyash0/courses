@@ -9,7 +9,6 @@
 
     <div class="card">
         <div class="card-body">
-            <!-- Обернем форму в отдельный блок для лучшего отображения -->
             <div class="filter-section mb-4">
                 <form method="GET" action="{{ route('students.index') }}" class="d-flex flex-wrap align-items-end gap-3">
                     <div class="flex-grow-1 min-width-select">
