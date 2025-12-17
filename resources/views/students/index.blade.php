@@ -81,7 +81,7 @@
                 </table>
             </div>
 
-            <div class="d-flex justify-content-center">
+            <div class="pagination">
                 {{ $orders->appends(request()->query())->links('vendor.pagination.custom') }}
             </div>
         </div>
