@@ -95,11 +95,11 @@ class CourseController extends Controller
      */
     public function destroy(Course $course): RedirectResponse
     {
-        if ($course->orders()->exists()) {
+        if ($course->orders()->where('payment_status', 'success')->exists()) {
             return redirect()->back()->with('error', 'Невозможно удалить курс, на который есть записи студентов.');
         }
 
-        if ($course->cover_image_path && file_exists(public_path('images/' . $course->cover_image_path))) {
+        if ($course->cover_image_path && file_exists(public_path('img/' . $course->cover_image_path))) {
             unlink(public_path('img/' . $course->cover_image_path));
         }
 

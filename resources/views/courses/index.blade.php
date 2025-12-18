@@ -59,7 +59,7 @@
                                    title="Редактировать">
                                     <img src="{{ asset('assets/img/edit.svg') }}" alt="Редактировать">
                                 </a>
-                                @if($course->lessons()->count() < 1)
+                                @if($course->lessons()->count() < 1 && !$course->orders()->where('payment_status', 'success')->exists())
                                     <form method="POST" action="{{ route('courses.destroy', $course) }}"
                                           style="display: inline;"
                                           onsubmit="return confirm('Вы уверены, что хотите удалить курс «{{ $course->name }}»?');">
