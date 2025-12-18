@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\BuyCourseRequest;
-use App\Http\Requests\Api\HandlePaymentWebhookRequest;
 use App\Models\Course;
 use App\Models\Order;
 use Illuminate\Http\JsonResponse;
@@ -74,16 +72,14 @@ class OrderController extends Controller
             ], 422);
         }
 
-        $order = Order::create([
+        Order::create([
             'user_id' => $user->id,
             'course_id' => $course->id,
             'payment_status' => 'pending',
         ]);
 
-        $payUrl = config('app.url') . '/payment/process/' . $order->id; // Пример URL
-
         return response()->json([
-            'pay_url' => $payUrl,
+            'pay_url' => 'Ссылка на оплату курса',
         ]);
     }
 
@@ -107,14 +103,14 @@ class OrderController extends Controller
 
         if ($order->payment_status === 'success') {
             return response()->json([
-                'status' => 'уже оплачен'
+                'status' => 'Уже оплачен'
             ], 418);
         }
 
         $order->delete();
 
         return response()->json([
-            'status' => 'success'
+            'status' => 'Успешно'
         ]);
     }
 }

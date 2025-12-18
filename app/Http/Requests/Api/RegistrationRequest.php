@@ -15,12 +15,11 @@ class RegistrationRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => [
-                'required',
-                'string',
-                'min:3',
-                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_#!%]).*$/'
+                'required', 'string', 'min:3',
+                'regex:/^(?=.*[a-zа-яё])(?=.*[A-ZА-ЯЁ])(?=.*\d)(?=.*[_#!%]).*$/u'
             ],
         ];
     }
@@ -33,6 +32,9 @@ class RegistrationRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'name.required' => 'Поле имени обязательно для заполнения.',
+            'name.string' => 'Поле имени должно быть строкой.',
+            'name.max' => 'Поле имени не может превышать :max символов.',
             'email.required' => 'Поле email обязательно для заполнения.',
             'email.email' => 'Поле email должно быть действительным адресом электронной почты.',
             'email.unique' => 'Пользователь с таким email уже существует.',
