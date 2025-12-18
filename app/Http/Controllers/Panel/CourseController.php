@@ -96,7 +96,7 @@ class CourseController extends Controller
     public function destroy(Course $course): RedirectResponse
     {
         if ($course->orders()->exists()) {
-            return redirect()->back()->withErrors(['error' => 'Невозможно удалить курс, на который есть записи студентов.']);
+            return redirect()->back()->with('error', 'Невозможно удалить курс, на который есть записи студентов.');
         }
 
         if ($course->cover_image_path && file_exists(public_path('images/' . $course->cover_image_path))) {

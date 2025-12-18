@@ -18,7 +18,7 @@ class LessonController extends Controller
     public function create(Course $course): View|RedirectResponse
     {
         if ($course->lessons()->count() >= 5) {
-            return redirect()->back()->withErrors(['error' => 'Для курса уже добавлено максимальное количество уроков (5).']);
+            return redirect()->back()->with('error', 'Для курса уже добавлено максимальное количество уроков (5).');
         }
         return view('lessons.create', ['course' => $course]);
     }
@@ -29,11 +29,17 @@ class LessonController extends Controller
     public function store(LessonRequest $request, Course $course): RedirectResponse
     {
         if ($course->lessons()->count() >= 5) {
-            return redirect()->back()->withErrors(['error' => 'Для курса уже добавлено максимальное количество уроков (5).']);
+            return redirect()->back()->with('error', 'Для курса уже добавлено максимальное количество уроков (5).');
         }
 
         $validatedData = $request->validated();
         $validatedData['course_id'] = $course->id;
+
+        $totalHoursAfterAdd = $course->lessons()->sum('duration_hours') + $validatedData['duration_hours'];
+        if ($totalHoursAfterAdd > $course->duration_hours) {
+            return redirect()->back()->withInput()
+                ->withErrors(['duration_hours' => "Суммарная длительность уроков ($totalHoursAfterAdd ч.) превысит общую длительность курса ($course->duration_hours ч.)."]);
+        }
 
         Lesson::create($validatedData);
 
@@ -62,6 +68,14 @@ class LessonController extends Controller
 
         $validatedData = $request->validated();
 
+        $totalHoursBeforeChange = $course->lessons()->sum('duration_hours');
+        $totalHoursAfterUpdate = $totalHoursBeforeChange - $lesson->duration_hours + $validatedData['duration_hours'];
+
+        if ($totalHoursAfterUpdate > $course->duration_hours) {
+            return redirect()->back()->withInput()
+                ->withErrors(['duration_hours' => "Обновление урока приведет к превышению суммарной длительности уроков ($totalHoursAfterUpdate ч.) над общей длительностью курса ($course->duration_hours ч.)."]);
+        }
+
         $lesson->update($validatedData);
 
         return redirect()->route('courses.show', ['course' => $course])->with('success', 'Урок успешно обновлен.');
@@ -77,7 +91,7 @@ class LessonController extends Controller
         }
 
         if ($course->orders()->where('payment_status', 'success')->exists()) {
-            return redirect()->back()->withErrors(['error' => 'Невозможно удалить урок, пока есть активные записи на курс.']);
+            return redirect()->back()->with('error', 'Невозможно удалить урок, пока есть активные записи на курс.');
         }
 
         $lesson->delete();

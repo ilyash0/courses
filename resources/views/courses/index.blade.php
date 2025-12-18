@@ -53,13 +53,13 @@
                             <td>{{ number_format($course->price, 2, '.', ' ') }}</td>
                             <td>{{ $course->start_date->format('d-m-Y') }}
                                 — {{ $course->end_date->format('d-m-Y') }}</td>
-                            <td>{{ $course->lessons_count ?? $course->lessons()->count() }}</td>
+                            <td>{{ $course->lessons()->count() }}</td>
                             <td>
                                 <a href="{{ route('courses.edit', $course) }}" class="btn btn-sm btn-primary me-2"
                                    title="Редактировать">
                                     <img src="{{ asset('assets/img/edit.svg') }}" alt="Редактировать">
                                 </a>
-                                @if($course->lessons_count < 1)
+                                @if($course->lessons()->count() < 1)
                                     <form method="POST" action="{{ route('courses.destroy', $course) }}"
                                           style="display: inline;"
                                           onsubmit="return confirm('Вы уверены, что хотите удалить курс «{{ $course->name }}»?');">

@@ -22,6 +22,13 @@
         </div>
     </div>
 
+    @if($course->lessons()->count() >= 5)
+        <div class="alert alert-warning mt-3">
+            Достигнуто максимальное количество уроков (5). Для добавления нового урока необходимо удалить
+            существующий.
+        </div>
+    @endif
+
     <div class="card mb-4">
         <div class="card-header">
             <h3>Информация о курсе</h3>
@@ -95,16 +102,19 @@
                                     <img src="{{ asset('assets/img/edit.svg') }}" alt="Редактировать"
                                          class="action-icon">
                                 </a>
-                                <form method="POST"
-                                      action="{{ route('courses.lessons.destroy', [$course, $lesson]) }}"
-                                      style="display: inline;"
-                                      onsubmit="return confirm('Вы уверены, что хотите удалить урок «{{ $lesson->title }}»?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger me-2" title="Удалить">
-                                    <img src="{{ asset('assets/img/bug.svg') }}" alt="Удалить" class="action-icon">
-                                </button>
-                                </form>
+                                @if(!$course->orders()->where('payment_status', 'success')->exists())
+                                    <form method="POST"
+                                          action="{{ route('courses.lessons.destroy', [$course, $lesson]) }}"
+                                          style="display: inline;"
+                                          onsubmit="return confirm('Вы уверены, что хотите удалить урок «{{ $lesson->title }}»?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger me-2" title="Удалить">
+                                            <img src="{{ asset('assets/img/bug.svg') }}" alt="Удалить"
+                                                 class="action-icon">
+                                        </button>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                     @empty
@@ -115,12 +125,6 @@
                     </tbody>
                 </table>
             </div>
-            @if($course->lessons()->count() >= 5)
-                <div class="alert alert-warning mt-3">
-                    Достигнуто максимальное количество уроков (5). Для добавления нового урока необходимо удалить
-                    существующий.
-                </div>
-            @endif
         </div>
     </div>
 @endsection
