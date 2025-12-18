@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\CertificateController;
 
 Route::post('/registr', [AuthController::class, 'register']);
 Route::post('/auth', [AuthController::class, 'authenticate']);
-Route::post('/payment-webhook', [OrderController::class, 'handlePaymentWebhook']);
+//Route::post('/payment-webhook', [OrderController::class, 'handlePaymentWebhook']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/courses', [CourseController::class, 'index']);
@@ -16,7 +16,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/courses/{courseId}/buy', [OrderController::class, 'buyCourse']);
 
     Route::get('/orders', [OrderController::class, 'index']);
-    Route::delete('/orders/{orderId}', [OrderController::class, 'cancel']);
+    Route::get('/orders/{orderId}', [OrderController::class, 'cancel']);
 
     Route::post('/check-certificate', [CertificateController::class, 'check']);
 
