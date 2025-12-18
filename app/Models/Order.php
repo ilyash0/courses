@@ -8,6 +8,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Order extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'user_id',
+        'course_id',
+        'payment_status',
+        'pay_url',
+    ];
+
+    /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
