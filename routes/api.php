@@ -20,5 +20,7 @@ Route::prefix('school-api')->group(function () {
         Route::delete('/orders/{orderId}', [OrderController::class, 'cancel']);
 
         Route::post('/check-certificate', [CertificateController::class, 'check']);
+
+        Route::post('/logout', [AuthController::class, 'logout']);
     });
 });
