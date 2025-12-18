@@ -6,21 +6,19 @@ use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\CertificateController;
 
-Route::prefix('school-api')->group(function () {
-    Route::post('/registr', [AuthController::class, 'register']);
-    Route::post('/auth', [AuthController::class, 'authenticate']);
-    Route::post('/payment-webhook', [OrderController::class, 'handlePaymentWebhook']);
+Route::post('/registr', [AuthController::class, 'register']);
+Route::post('/auth', [AuthController::class, 'authenticate']);
+Route::post('/payment-webhook', [OrderController::class, 'handlePaymentWebhook']);
 
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::get('/courses', [CourseController::class, 'index']);
-        Route::get('/courses/{courseId}', [CourseController::class, 'showLessons']);
-        Route::post('/courses/{courseId}/buy', [OrderController::class, 'buyCourse']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/courses', [CourseController::class, 'index']);
+    Route::get('/courses/{courseId}', [CourseController::class, 'showLessons']);
+    Route::post('/courses/{courseId}/buy', [OrderController::class, 'buyCourse']);
 
-        Route::get('/orders', [OrderController::class, 'index']);
-        Route::delete('/orders/{orderId}', [OrderController::class, 'cancel']);
+    Route::get('/orders', [OrderController::class, 'index']);
+    Route::delete('/orders/{orderId}', [OrderController::class, 'cancel']);
 
-        Route::post('/check-certificate', [CertificateController::class, 'check']);
+    Route::post('/check-certificate', [CertificateController::class, 'check']);
 
-        Route::post('/logout', [AuthController::class, 'logout']);
-    });
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
