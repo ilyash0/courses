@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\CertificateController;
 
-Route::post('/registr', [AuthController::class, 'register']);
+Route::post('/registration', [AuthController::class, 'register']);
 Route::post('/auth', [AuthController::class, 'authenticate']);
 //Route::post('/payment-webhook', [OrderController::class, 'handlePaymentWebhook']);
 
