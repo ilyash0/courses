@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/orders/{orderId}', [OrderController::class, 'cancel']);
 
     Route::post('/check-certificate', [CertificateController::class, 'check']);
+    Route::post('/create-certificate', [CertificateController::class, 'create']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });

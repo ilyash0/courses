@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CheckCertificateRequest;
+use App\Http\Requests\Api\CreateCertificateRequest;
+use App\Models\Certificate;
+use App\Models\Order;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
+use Str;
 
 class CertificateController extends Controller
 {
@@ -36,5 +40,52 @@ class CertificateController extends Controller
                 'status' => 'failed'
             ]);
         }
+    }
+
+    /**
+     * Generate a certificate number.
+     *
+     * @param CreateCertificateRequest $request
+     * @return JsonResponse
+     */
+    public function create(CreateCertificateRequest $request): JsonResponse
+    {
+        $validatedData = $request->validated();
+
+        $studentId = $validatedData['student_id'];
+        $courseId = $validatedData['course_id'];
+
+        $order = Order::where('user_id', $studentId)
+            ->where('course_id', $courseId)
+            ->where('payment_status', 'success')
+            ->first();
+
+        if (!$order) {
+            return response()->json([
+                'message' => 'Данный студент не записан на указанный курс или курс не оплачен'
+            ], 422);
+        }
+
+        if (Certificate::where('user_id', $studentId)->where('course_id', $courseId)->exists()) {
+            return response()->json([
+                'message' => 'Сертификат уже существует для этого студента на текущем курса'
+            ], 422);
+        }
+
+        $externalPart = Str::upper(Str::random(6));
+
+        $localPart = Str::random(5) . '1';
+
+        $certificateNumber = $externalPart . $localPart;
+
+        Certificate::create([
+            'user_id' => $studentId,
+            'course_id' => $courseId,
+            'certificate_number' => $certificateNumber,
+        ]);
+
+        return response()->json([
+            'certificate_number' => $certificateNumber,
+        ]);
     }
 }
