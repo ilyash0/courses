@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Panel\CertificateController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Panel\AuthController;
 use App\Http\Controllers\Panel\CourseController;
@@ -30,5 +31,7 @@ Route::prefix('course-admin')->group(function () {
         Route::get('/students', [StudentController::class, 'index'])->name('students.index');
 
         Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+        Route::get('/certificates', [CertificateController::class, 'index'])->name('certificates.index');
     });
 });

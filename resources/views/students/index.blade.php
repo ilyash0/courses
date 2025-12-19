@@ -69,7 +69,7 @@
                             </td>
                             <td>
                                 @if($order->payment_status === 'success' && $order->course->lessons->count() > 0)
-                                    <a href="" target="_blank" class="btn btn-sm btn-success">
+                                    <a href="{{ route('certificates.index') }}" class="btn btn-sm btn-success">
                                         <img src="{{ asset('assets/img/certificate.svg')}}" alt="Скачать сертификат" class="action-icon">
                                         Скачать
                                     </a>

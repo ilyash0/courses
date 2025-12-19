@@ -29,6 +29,12 @@
             </a>
         </li>
         <li>
+            <a href="{{ route('certificates.index') }}" class="{{ request()->routeIs('certificates.*') ? 'active' : '' }}">
+                <img src="{{ asset('assets/img/certificate.svg') }}" alt="Сертификаты">
+                Сертификаты
+            </a>
+        </li>
+        <li>
             <a href="{{ route('logout') }}">
                 <img src="{{ asset('assets/img/exit.svg') }}" alt="Выйти">
                 Выйти
