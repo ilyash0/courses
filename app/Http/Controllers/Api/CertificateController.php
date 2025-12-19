@@ -22,7 +22,7 @@ class CertificateController extends Controller
     public function check(CheckCertificateRequest $request): JsonResponse
     {
         $validatedData = $request->validated();
-        $certificateNumber = $validatedData['sertikate_number'];
+        $certificateNumber = $validatedData['certificate_number'];
 
         $lastDigit = substr($certificateNumber, -1);
 
