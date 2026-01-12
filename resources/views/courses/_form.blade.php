@@ -8,8 +8,7 @@
         <div class="form-group">
             <label for="name" class="form-label">Название курса *</label>
             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
-                   maxlength="30"
-                   required value="{{ old('name', $course?->name) }}">
+                   value="{{ old('name', $course?->name) }}">
             <div class="form-text">Обязательное поле, максимум 30 символов</div>
             @error('name')
             <div class="error-message">{{ $message }}</div>
@@ -32,11 +31,10 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="duration" class="form-label">Продолжительность (в часах) *</label>
-                    <input type="number" class="form-control @error('duration_hours') is-invalid @enderror"
+                    <input type="text" class="form-control @error('duration_hours') is-invalid @enderror"
                            id="duration_hours"
                            name="duration_hours"
-                           value="{{ old('duration_hours', $course?->duration_hours) }}" min="1" max="10" step="1"
-                           required>
+                           value="{{ old('duration_hours', $course?->duration_hours) }}">
                     <div class="form-text">Обязательное поле, целое число не больше 10 часов</div>
                     @error('duration_hours')
                     <div class="error-message">{{ $message }}</div>
@@ -47,10 +45,9 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="price" class="form-label">Цена *</label>
-                    <input type="number" class="form-control @error('price') is-invalid @enderror" id="price"
+                    <input type="text" class="form-control @error('price') is-invalid @enderror" id="price"
                            name="price"
-                           value="{{ old('price', $course?->price) }}"
-                           min="100" step="0.01" required>
+                           value="{{ old('price', $course?->price) }}">
                     <div class="form-text">Обязательное поле, формат «хх.хх», не менее 100</div>
                     @error('price')
                     <div class="error-message">{{ $message }}</div>
@@ -65,7 +62,7 @@
                     <label for="start_date" class="form-label">Дата начала *</label>
                     <input type="date" class="form-control @error('start_date') is-invalid @enderror" id="start_date"
                            name="start_date"
-                           value="{{ old('start_date', $course?->start_date?->format('Y-m-d')) }}" required>
+                           value="{{ old('start_date', $course?->start_date?->format('Y-m-d')) }}" >
                     <div class="form-text">Обязательное поле</div>
                     @error('start_date')
                     <div class="error-message">{{ $message }}</div>
@@ -78,7 +75,7 @@
                     <label for="end_date" class="form-label">Дата окончания *</label>
                     <input type="date" class="form-control @error('end_date') is-invalid @enderror" id="end_date"
                            name="end_date"
-                           value="{{ old('end_date', $course?->end_date?->format('Y-m-d')) }}" required>
+                           value="{{ old('end_date', $course?->end_date?->format('Y-m-d')) }}" >
                     <div class="form-text">Обязательное поле</div>
                     @error('end_date')
                     <div class="error-message">{{ $message }}</div>
@@ -94,7 +91,7 @@
 
             <input type="file" class="form-control @error('cover_image_path') is-invalid @enderror"
                    id="cover_image_path" name="cover_image_path"
-                   accept="image/jpeg" {{ $isCreating ? 'required' : '' }}>
+                   accept="image/jpeg" {{ $isCreating ? '' : '' }}>
             <div class="form-text">
                 @if($isCreating)
                     Обязательное поле при создании<br>

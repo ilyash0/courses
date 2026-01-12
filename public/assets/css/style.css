@@ -264,7 +264,7 @@ body {
 .btn-sm img {
     width: 14px;
     height: 14px;
-    margin-right: 6px;
+    margin-right: 0;
 }
 
 /* Белые иконки для темных кнопок */

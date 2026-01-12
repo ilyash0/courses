@@ -7,13 +7,6 @@ use App\Http\Controllers\Panel\CourseController;
 use App\Http\Controllers\Panel\LessonController;
 use App\Http\Controllers\Panel\StudentController;
 
-Route::get('/', function () {
-    if (auth()->check()) {
-        return redirect()->route('dashboard');
-    }
-    return redirect()->route('login');
-})->name('home');
-
 Route::prefix('course-admin')->group(function () {
 
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');

@@ -48,10 +48,6 @@
                 <button type="submit" class="btn btn-primary w-100 mt-4">
                     <img src="{{ asset('assets/img/login.svg') }}" alt="Войти">Войти
                 </button>
-
-                <div class="text-center mt-3">
-                    <small>Демо доступ: admin@edu.com / course2025</small>
-                </div>
             </form>
         </div>
     </div>

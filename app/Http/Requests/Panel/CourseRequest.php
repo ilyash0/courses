@@ -18,8 +18,8 @@ class CourseRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:100'],
             'duration_hours' => ['required', 'integer', 'min:1', 'max:10'],
             'price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'min:100'],
-            'start_date' => ['required'],
-            'end_date' => ['required', 'after_or_equal:start_date'],
+            'start_date' => ['required', 'date'],
+            'end_date' => ['required', 'date', 'after_or_equal:start_date'],
             'cover_image_path' => [($this->course ? 'nullable' : 'required'), 'file', 'mimes:jpeg,jpg', 'max:2000']
         ];
     }
@@ -39,8 +39,10 @@ class CourseRequest extends FormRequest
             'price.regex' => 'Цена должна быть в формате xx.xx (например, 150.00).',
             'price.min' => 'Цена не может быть меньше :min.',
             'start_date.required' => 'Дата начала обязательна.',
+            'start_date.date' => 'В поле "дата начала" введена не дата.',
             'start_date.date_format' => 'Дата начала должна быть в формате ДД-ММ-ГГГГ (например, 25-12-2025).',
             'end_date.required' => 'Дата окончания обязательна.',
+            'end_date.date' => 'В поле "дата окончания" введена не дата.',
             'end_date.date_format' => 'Дата окончания должна быть в формате ДД-ММ-ГГГГ (например, 25-12-2025).',
             'end_date.after_or_equal' => 'Дата окончания должна быть не раньше даты начала.',
             'cover_image_path.required' => 'Обложка курса обязательна при создании.',

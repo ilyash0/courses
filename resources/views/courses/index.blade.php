@@ -25,6 +25,7 @@
                         <th>Цена (₽)</th>
                         <th>Даты</th>
                         <th>Кол-во уроков</th>
+                        <th>Кол-во студентов</th>
                         <th>Действия</th>
                     </tr>
                     </thead>
@@ -54,7 +55,12 @@
                             <td>{{ $course->start_date->format('d-m-Y') }}
                                 — {{ $course->end_date->format('d-m-Y') }}</td>
                             <td>{{ $course->lessons()->count() }}</td>
+                            <td>{{ $course->orders()->count() }}</td>
                             <td>
+                                <a href="{{ route('courses.show', $course) }}" class="btn btn-sm btn-primary me-2"
+                                   title="Просмотреть">
+                                    <img src="{{ asset('assets/img/eye.svg') }}" alt="Просмотреть">
+                                </a>
                                 <a href="{{ route('courses.edit', $course) }}" class="btn btn-sm btn-primary me-2"
                                    title="Редактировать">
                                     <img src="{{ asset('assets/img/edit.svg') }}" alt="Редактировать">
