@@ -512,7 +512,6 @@ body {
     height: 20px;
     margin-right: 8px;
     vertical-align: middle;
-    filter: brightness(0) invert(1);
 }
 
 /* Картинки курсов */
